@@ -87,11 +87,24 @@ eng に入るもの：
 /plugin install typescript-lsp@claude-plugins-official   # TS
 ```
 
-#### マーケ / デザイナー
+#### マーケター
 
-役割パックは順次追加予定（`marketer` / `designer`）。現状は公式の
-`frontend-design` / `document-skills`、外部の各種スキルを併用してください。
-（research / designer 系エージェントは将来 `research` / `designer` パックへ分離予定）
+```
+/plugin install marketer@claude-skills      # strategic-research-analyst エージェント
+/plugin install document-skills@anthropic-agent-skills   # brand-guidelines, internal-comms, doc-coauthoring
+```
++ `deep-research` スキル、ランディングページは `frontend-design@claude-plugins-official`。
+
+#### デザイナー
+
+```
+/plugin install designer@claude-skills      # nano-banana-pro-prompt-generator エージェント
+/plugin install frontend-design@claude-plugins-official
+/plugin install document-skills@anthropic-agent-skills   # canvas-design, theme-factory, algorithmic-art, slack-gif-creator
+```
+
+> marketer / designer の中核価値は外部プラグイン（frontend-design / document-skills）側に多く、
+> 自社パックは各役割の専門エージェント1つ + 上記の導線という構成です。
 
 ---
 

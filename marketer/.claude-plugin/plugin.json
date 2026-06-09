@@ -1,0 +1,7 @@
+{
+  "name": "marketer",
+  "description": "Marketing pack: strategic-research-analyst agent for market trends, competitive landscape, and business-strategy research. Pair with document-skills (brand-guidelines, internal-comms) and the deep-research skill.",
+  "version": "0.1.0",
+  "author": { "name": "snkrheadz" },
+  "license": "MIT"
+}
