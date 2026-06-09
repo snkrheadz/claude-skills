@@ -1,6 +1,6 @@
 ---
 name: html-output
-description: "Generate rich HTML artifacts instead of Markdown for specs, code reviews, designs, reports, and custom editors. Triggers: /html-output, html artifact, html spec, html report, html editor"
+description: "Generate rich HTML artifacts instead of Markdown for specs, code reviews, designs, reports, and custom editors. Triggers: /core:html-output, html artifact, html spec, html report, html editor"
 user-invocable: true
 allowed-tools: Read, Grep, Glob, Bash, Write, WebFetch
 model: sonnet

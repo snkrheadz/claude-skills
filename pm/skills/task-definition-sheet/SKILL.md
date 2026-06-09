@@ -1,6 +1,6 @@
 ---
 name: task-definition-sheet
-description: "業務定義シート（業務ごとの基本情報を1枚にまとめたもの）を対話で作成し、A4・1枚のHTMLとして書き出す。DX/AI導入や業務改善の最初のステップ、業務の見える化に。Triggers: /task-definition-sheet, 業務定義シート, 業務定義, 業務の見える化, business task definition sheet"
+description: "業務定義シート（業務ごとの基本情報を1枚にまとめたもの）を対話で作成し、A4・1枚のHTMLとして書き出す。DX/AI導入や業務改善の最初のステップ、業務の見える化に。Triggers: /pm:task-definition-sheet, 業務定義シート, 業務定義, 業務の見える化, business task definition sheet"
 user-invocable: true
 allowed-tools: Read, Write, Bash, Grep, Glob, AskUserQuestion
 model: sonnet

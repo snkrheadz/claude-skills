@@ -1,6 +1,6 @@
 ---
 name: project-setup
-description: "Set up Claude Code configuration for projects. Detects structure and generates .claude/settings.local.json and hooks. Triggers: /project-setup, project configuration, formatter setup, project configuration, setup formatter"
+description: "Set up Claude Code configuration for projects. Detects structure and generates .claude/settings.local.json and hooks. Triggers: /eng:project-setup, project configuration, formatter setup, project configuration, setup formatter"
 user-invocable: true
 allowed-tools: Read, Bash, Glob, Grep, Write
 model: sonnet

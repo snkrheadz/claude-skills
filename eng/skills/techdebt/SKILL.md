@@ -1,6 +1,6 @@
 ---
 name: techdebt
-description: "Technical debt detection and fix suggestions. Detects duplicate code, TODO comments, unused imports, and high-complexity functions. Triggers: /techdebt, technical debt, code quality check"
+description: "Technical debt detection and fix suggestions. Detects duplicate code, TODO comments, unused imports, and high-complexity functions. Triggers: /eng:techdebt, technical debt, code quality check"
 user-invocable: true
 allowed-tools: Read, Grep, Glob, Bash
 model: sonnet

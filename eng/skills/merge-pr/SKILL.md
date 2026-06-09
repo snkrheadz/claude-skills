@@ -1,18 +1,18 @@
 ---
 name: merge-pr
-description: "Merge PR and cleanup worktree and local branch. Triggers: /merge-pr, PR merge, worktree cleanup"
+description: "Merge PR and cleanup worktree and local branch. Triggers: /eng:merge-pr, PR merge, worktree cleanup"
 user-invocable: true
 allowed-tools: Bash
 ---
 
-# /merge-pr
+# /eng:merge-pr
 
 Execute PR merge and worktree cleanup in one command.
 
 ## Usage
 
 ```
-/merge-pr 42
+/eng:merge-pr 42
 ```
 
 ## Execution Flow

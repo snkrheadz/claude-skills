@@ -1,6 +1,6 @@
 ---
 name: db-query
-description: "Database query and analysis support. Creates, executes, and analyzes SQL queries. Supports BigQuery, PostgreSQL, MySQL. Triggers: /db-query, SQL, query, data analysis, BigQuery"
+description: "Database query and analysis support. Creates, executes, and analyzes SQL queries. Supports BigQuery, PostgreSQL, MySQL. Triggers: /eng:db-query, SQL, query, data analysis, BigQuery"
 user-invocable: true
 allowed-tools: Bash, Read, Grep, Glob
 model: sonnet
@@ -233,11 +233,11 @@ bq query --destination_table=project:dataset.result 'SELECT ...'
 
 ```bash
 # Create query from natural language
-/db-query show daily DAU for last month
+/eng:db-query show daily DAU for last month
 
 # Execute SQL directly
-/db-query --execute "SELECT COUNT(*) FROM users"
+/eng:db-query --execute "SELECT COUNT(*) FROM users"
 
 # Check schema
-/db-query --schema users
+/eng:db-query --schema users
 ```

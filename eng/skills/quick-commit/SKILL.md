@@ -1,6 +1,6 @@
 ---
 name: quick-commit
-description: "Quick commit. Stages changes, generates commit message, and executes commit in one action. Does not create PR. Triggers: /quick-commit, quick commit, simple commit"
+description: "Quick commit. Stages changes, generates commit message, and executes commit in one action. Does not create PR. Triggers: /eng:quick-commit, quick commit, simple commit"
 user-invocable: true
 allowed-tools: Bash, Read, Grep
 model: haiku

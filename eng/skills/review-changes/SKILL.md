@@ -1,6 +1,6 @@
 ---
 name: review-changes
-description: "Review changes before commit. Analyzes diff and identifies issues, improvements, and risks. Triggers: /review-changes, change review, pre-commit check, diff review"
+description: "Review changes before commit. Analyzes diff and identifies issues, improvements, and risks. Triggers: /eng:review-changes, change review, pre-commit check, diff review"
 user-invocable: true
 allowed-tools: Bash, Read, Grep, Glob
 model: sonnet

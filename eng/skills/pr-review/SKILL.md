@@ -1,6 +1,6 @@
 ---
 name: pr-review
-description: "Adversarial Architect-Reviewer for a PR or diff. Fans out reviewers by dimension in isolated context, adversarially verifies each must-fix finding to kill false positives, then synthesizes one prioritized verdict. Generic (not project-specific). Triggers: /pr-review, PR review, architect review, design review of a PR, review pull request"
+description: "Adversarial Architect-Reviewer for a PR or diff. Fans out reviewers by dimension in isolated context, adversarially verifies each must-fix finding to kill false positives, then synthesizes one prioritized verdict. Generic (not project-specific). Triggers: /eng:pr-review, PR review, architect review, design review of a PR, review pull request"
 user-invocable: true
 allowed-tools: Bash, Read, Grep, Glob, Task
 model: sonnet

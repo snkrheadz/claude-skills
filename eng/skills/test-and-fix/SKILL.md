@@ -1,6 +1,6 @@
 ---
 name: test-and-fix
-description: "Test execution and automatic repair loop on failure. Runs tests, analyzes cause if failed, and attempts to fix. Triggers: /test-and-fix, test repair, CI repair"
+description: "Test execution and automatic repair loop on failure. Runs tests, analyzes cause if failed, and attempts to fix. Triggers: /eng:test-and-fix, test repair, CI repair"
 user-invocable: true
 allowed-tools: Read, Edit, Bash, Grep, Glob
 model: sonnet

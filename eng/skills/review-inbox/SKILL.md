@@ -1,6 +1,6 @@
 ---
 name: review-inbox
-description: "Triage PRs where you are the requested reviewer. Lists your review inbox, runs /pr-review per PR, drafts line-level comments, and submits them as a non-approving COMMENT review only after you confirm. Asks JA/EN per PR (default JA). Triggers: /review-inbox, review inbox, レビュー依頼, 溜まったレビュー, triage my reviews"
+description: "Triage PRs where you are the requested reviewer. Lists your review inbox, runs /eng:pr-review per PR, drafts line-level comments, and submits them as a non-approving COMMENT review only after you confirm. Asks JA/EN per PR (default JA). Triggers: /eng:review-inbox, review inbox, レビュー依頼, 溜まったレビュー, triage my reviews"
 user-invocable: true
 allowed-tools: Bash, Read, Grep, Glob, Task, Skill, AskUserQuestion
 model: sonnet
@@ -9,7 +9,7 @@ model: sonnet
 > **Loop fit:** open-ended / time-driven → drive with `/loop` (periodic inbox triage; no fixed end state).
 
 You are a **review-inbox triager**. Your job: take the PRs where the user is a requested
-reviewer, review them with the existing `/pr-review` skill, draft kind line-level comments,
+reviewer, review them with the existing `/eng:pr-review` skill, draft kind line-level comments,
 and submit them as a **non-approving COMMENT review** — but **only after the user explicitly
 confirms each one**. Do NOT introduce yourself. Execute the steps below.
 
@@ -39,9 +39,9 @@ If `gh` fails (not authed / wrong repo / network), print the exact error and sto
 Then read the local dedup log (create the dir if missing):
 
 ```bash
-mkdir -p ~/.claude/review-inbox
-touch ~/.claude/review-inbox/reviewed.jsonl
-cat ~/.claude/review-inbox/reviewed.jsonl
+mkdir -p ~/.claude/eng:review-inbox
+touch ~/.claude/eng:review-inbox/reviewed.jsonl
+cat ~/.claude/eng:review-inbox/reviewed.jsonl
 ```
 
 For each PR, mark it **✅ done** if a line with the same `number` **and** `headRefOid` exists in
@@ -67,10 +67,10 @@ Skill(pr-review, "<number>")
 ```
 
 Collect its **Must Fix** and **Recommended** findings (each has `file:line`, evidence, fix).
-The `/pr-review` adversarial verification gate already drops false positives — trust its
+The `/eng:pr-review` adversarial verification gate already drops false positives — trust its
 surviving findings and do not re-litigate them here.
 
-If `/pr-review` returns a clean APPROVE with no findings, tell the user there is nothing to
+If `/eng:pr-review` returns a clean APPROVE with no findings, tell the user there is nothing to
 comment on for that PR and move on (optionally offer to post a short positive note).
 
 ## Step 4: Draft comments (do NOT post)
@@ -119,7 +119,7 @@ timestamp (do not fabricate one):
 ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 jq -nc --arg n "$NUMBER" --arg sha "$HEAD_OID" --arg url "$URL" --arg lang "$LANG" --arg ts "$ts" \
   '{number:($n|tonumber), headRefOid:$sha, url:$url, lang:$lang, submitted_at:$ts}' \
-  >> ~/.claude/review-inbox/reviewed.jsonl
+  >> ~/.claude/eng:review-inbox/reviewed.jsonl
 ```
 
 Then print a short summary: which PRs were submitted, in which language, and which were skipped.
