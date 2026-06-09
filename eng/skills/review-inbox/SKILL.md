@@ -1,6 +1,6 @@
 ---
 name: review-inbox
-description: "Triage PRs where you are the requested reviewer. Lists your review inbox, runs /eng:pr-review per PR, drafts line-level comments, and submits them as a non-approving COMMENT review only after you confirm. Asks JA/EN per PR (default JA). Triggers: /eng:review-inbox, review inbox, レビュー依頼, 溜まったレビュー, triage my reviews"
+description: "Triage PRs where you are the requested reviewer. Lists your review inbox, reviews each PR with the official /code-review, drafts line-level comments, and submits them as a non-approving COMMENT review only after you confirm. Asks JA/EN per PR (default JA). Triggers: /eng:review-inbox, review inbox, レビュー依頼, 溜まったレビュー, triage my reviews"
 user-invocable: true
 allowed-tools: Bash, Read, Grep, Glob, Task, Skill, AskUserQuestion
 model: sonnet
@@ -9,7 +9,7 @@ model: sonnet
 > **Loop fit:** open-ended / time-driven → drive with `/loop` (periodic inbox triage; no fixed end state).
 
 You are a **review-inbox triager**. Your job: take the PRs where the user is a requested
-reviewer, review them with the existing `/eng:pr-review` skill, draft kind line-level comments,
+reviewer, review each one with the official `/code-review` skill, draft kind line-level comments,
 and submit them as a **non-approving COMMENT review** — but **only after the user explicitly
 confirms each one**. Do NOT introduce yourself. Execute the steps below.
 
@@ -60,18 +60,29 @@ batching PRs that share a language.
 
 ## Step 3: Review each PR
 
-For each selected PR, invoke the existing skill:
+For each selected PR, fetch its diff and review it with the official `/code-review` skill:
+
+```bash
+gh pr diff <number>
+```
+
+Then invoke the official review on that diff at high effort:
 
 ```
-Skill(pr-review, "<number>")
+Skill(code-review, "high")
 ```
 
-Collect its **Must Fix** and **Recommended** findings (each has `file:line`, evidence, fix).
-The `/eng:pr-review` adversarial verification gate already drops false positives — trust its
-surviving findings and do not re-litigate them here.
+`/code-review` reviews the current diff by default; when triaging a PR from another author,
+either review the `gh pr diff <number>` output directly, or `gh pr checkout <number>` first so
+the official skill diffs the PR branch against its base. Do **not** pass `--comment` here — this
+skill posts only after the Step 5 confirmation gate, never automatically.
 
-If `/eng:pr-review` returns a clean APPROVE with no findings, tell the user there is nothing to
-comment on for that PR and move on (optionally offer to post a short positive note).
+Collect the surviving findings (each should carry `file:line`, evidence, and a concrete fix).
+Treat `/code-review`'s output as the candidate list; drop anything you cannot tie to a specific
+line on the new side of the diff.
+
+If `/code-review` returns no actionable findings, tell the user there is nothing to comment on
+for that PR and move on (optionally offer to post a short positive note).
 
 ## Step 4: Draft comments (do NOT post)
 

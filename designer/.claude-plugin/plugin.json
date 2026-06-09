@@ -1,7 +1,0 @@
-{
-  "name": "designer",
-  "description": "Design pack: nano-banana-pro-prompt-generator agent for image/visual prompt generation and slide storytelling. Pair with frontend-design and document-skills (canvas-design, theme-factory, algorithmic-art).",
-  "version": "0.1.0",
-  "author": { "name": "snkrheadz" },
-  "license": "MIT"
-}
