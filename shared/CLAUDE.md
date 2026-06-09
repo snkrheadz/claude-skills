@@ -1,0 +1,80 @@
+# Workflow Orchestration
+
+These are the *non-obvious* operating rules for working with Claude Code on our team.
+Things a modern model already does well — find root causes, prefer simple code, write
+tests, avoid hacks — are intentionally **not** repeated here. Adding them back is
+micromanagement; trust the model and keep this file minimal.
+
+> Distribute this file to your `~/.claude/CLAUDE.md` (global) or a project's
+> `./CLAUDE.md`. Plugins cannot ship it automatically — see the repo README.
+
+
+## 1. auto-first execution
+- Default to **auto mode**: act, don't ask. The harness routes risky commands through a
+  security check, and (if you installed the `core` plugin) its `pre-tool-guard` hook
+  blocks sensitive-file access — so narrating yes/no for each step adds no safety; it
+  just hides the calls that matter.
+- **Skip plan mode for ordinary work.** Current models don't need a separate planning
+  step. Reach for plan mode only when a choice is genuinely hard to reverse
+  (schema/data migrations, public-facing or destructive changes, multi-service
+  refactors) or the requirements are truly ambiguous.
+- If an approach goes sideways, stop and re-think rather than pushing a failing path.
+
+
+## 2. Orchestration: subagent → skill → team → workflow
+Escalate only as far as the work demands; the difference is who holds the plan.
+- **Subagent** (`Agent`) — one focused task in its own context (research, a scoped edit,
+  one file's analysis). The default for delegation.
+- **Skill** — a repeatable in-context procedure with no fan-out. Cheapest; prefer it
+  before spinning up agents.
+- **Agent Team** — a lead supervising long-lived peers over a shared task list. Use when
+  work needs coordination across roles.
+- **Dynamic Workflow** (`Workflow`, via the `ultracode` keyword) — deterministic fan-out
+  with verify gates. Use for breadth one context can't hold: codebase-wide audit,
+  migration over many sites, adversarial review.
+
+**Rule:** plan fits in 2–3 steps → subagent or skill; coordinated multi-role → Team;
+wide fan-out + verify/synthesize → Workflow.
+
+
+## 3. Self-improvement & memory
+- **User correction → a project `tasks/lessons.md`** (record the pattern *and the why*).
+- **Discovered preference → auto-memory** (`~/.claude/memory/`, let Claude Code manage it).
+- Review `tasks/lessons.md` at session start for the active project.
+
+
+## 4. Verification = run the real thing
+"Done" means **observed working**, not exit 0. Lint and type-checks are table stakes,
+not verification — for an agent, verification is *"can I actually run this and watch it
+behave?"*
+- Start the real server / UI driver / simulator and observe behavior; diff against the
+  baseline when relevant.
+- **Autonomous runs need an end-to-end check that self-terminates honestly.** If none
+  exists, build it first — an unattended loop with no verification path is not safe to run.
+- Define your **project's closing gate** explicitly: whatever proves a change works
+  end-to-end (the real build passes, the app runs, the tests are green) — and run it
+  before calling work done.
+
+
+## 5. Loop & routine primitives — pick by what triggers the next turn
+"Write the loop that does the work; don't hand-prompt each turn."
+
+- **routine** (`schedule` skill → cloud cron agent) — **unattended and recurring; runs
+  without you present.** The default for ongoing maintenance.
+- **`/goal <condition>`** — work until a verifiable end state holds (tests pass, queue
+  empty, migration complete). Bounded work with a measurable end.
+- **`/loop [interval] <prompt>`** — fixed interval, or no interval to self-pace. For an
+  interactive, in-session watch/maintain pass.
+- **`autoresearch`** — metric-driven modify→verify→keep/discard search. Use when `/goal`
+  is too thin (you need scoring and reverting bad attempts).
+
+**Rule:** unattended & recurring → routine; verifiable end condition → `/goal`;
+in-session observe/maintain → `/loop`; metric + keep/discard → `autoresearch`.
+
+
+---
+
+## Task management & principles
+- Non-trivial work: jot a short checkable plan in `tasks/todo.md`, track it as you go,
+  and close with a one-paragraph review. Skip the ceremony for small obvious changes.
+- Keep every change minimal and scoped — touch only what's necessary.

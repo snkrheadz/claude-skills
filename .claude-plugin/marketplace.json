@@ -1,0 +1,23 @@
+{
+  "name": "claude-skills",
+  "description": "snkrheadz が運用保守する Claude Code スキルのマーケットプレイス。新メンバーが役割別に初日から同じ環境を組めるようにする。",
+  "owner": {
+    "name": "snkrheadz"
+  },
+  "plugins": [
+    {
+      "name": "core",
+      "source": "./core",
+      "description": "Cross-role foundation for everyone: first-principles thinking, teaching/onboarding, rich HTML output, a Claude Code self-guide, and a sensitive-file guard hook. Install this first, whatever your role.",
+      "version": "0.1.0",
+      "author": { "name": "snkrheadz" }
+    },
+    {
+      "name": "pm",
+      "source": "./pm",
+      "description": "PM / business assets maintained by snkrheadz: the 業務定義シート (task definition sheet) as A4 HTML. Pairs with the external phuryn/pm-skills marketplace for the full PM lifecycle.",
+      "version": "0.1.0",
+      "author": { "name": "snkrheadz" }
+    }
+  ]
+}

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<!--
+  業務定義シート テンプレート (task-definition-sheet skill)
+  ============================================================
+  このファイルはひな形です。SKILL.md の手順に従い、下記の {{...}} トークンを
+  ヒアリング結果で置換して最終 HTML を生成してください。
+
+  置換トークン一覧:
+    {{業務名}}            … 業務の名称（タイトル）
+    {{担当者リスト}}       … <li>主担当: 〇〇</li> 形式の行を列挙（関係者も含める）
+    {{トリガー}}          … 業務が始まるきっかけ（短文。改行は <br>）
+    {{所要時間}}          … 1回あたりの平均所要時間
+    {{頻度_毎日}} {{頻度_週次}} {{頻度_月次}} … 該当する1つだけ class に " sel" を足す
+    {{その他頻度}}        … 「その他」の内容（無ければ空文字）
+    {{目的}}              … なぜこの業務をやるのか（背景・存在理由）。改行は <br>
+    {{INPUTリスト}}        … <li>受注データ</li> 形式の行を列挙
+    {{DOリスト}}           … <li>請求金額の確認</li> 形式の行を列挙
+    {{完了とみなす状態}}    … この業務が「終わった」とみなせる状態
+    {{成果物}}            … 完了時に得られる成果物
+    {{作成日}}            … YYYY-MM-DD
+-->
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>業務定義シート — {{業務名}}</title>
+<style>
+  :root{
+    --ink:#1f2328;
+    --line:#2b2f33;
+    --accent:#2f6b4e;        /* 記入内容の色（参考様式の緑） */
+    --header-bg:#111418;
+    --header-fg:#ffffff;
+    --bg:#e9eaec;
+    --card:#ffffff;
+    --label-bg:#fbfbfa;
+    --arrow:#8a8f94;
+    --muted:#6b7178;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic",Meiryo,system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding:28px 20px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .sheet{width:100%;max-width:1080px;}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    table-layout:fixed;
+    background:var(--card);
+    border:2.5px solid var(--line);
+  }
+  td{
+    border:1.5px solid var(--line);
+    padding:10px 14px;
+    vertical-align:top;
+    font-size:15px;
+    line-height:1.7;
+  }
+  /* --- ヘッダー --- */
+  .title-cell{
+    background:var(--header-bg);
+    color:var(--header-fg);
+    font-weight:800;
+    font-size:22px;
+    letter-spacing:.06em;
+    text-align:center;
+    white-space:nowrap;
+    vertical-align:middle;
+  }
+  .bizname-label{
+    text-align:center;
+    font-weight:600;
+    background:var(--label-bg);
+    vertical-align:middle;
+    white-space:nowrap;
+  }
+  .bizname-value{
+    color:var(--accent);
+    font-weight:700;
+    font-size:19px;
+    text-align:center;
+    vertical-align:middle;
+  }
+  /* --- 見出し行 --- */
+  .col-label{
+    text-align:center;
+    font-weight:600;
+    background:var(--label-bg);
+    vertical-align:middle;
+  }
+  .section-label{
+    text-align:center;
+    font-weight:700;
+    letter-spacing:.04em;
+    background:var(--label-bg);
+    vertical-align:middle;
+    position:relative;
+  }
+  /* INPUT ▶ DO ▶ OUTPUT の矢印 */
+  .arrow{
+    position:absolute;
+    right:-11px;
+    top:50%;
+    transform:translateY(-50%);
+    color:var(--arrow);
+    font-size:18px;
+    line-height:1;
+    z-index:3;
+    pointer-events:none;
+  }
+  /* --- 記入内容 --- */
+  .value{color:var(--accent);}
+  ul.entries{
+    margin:0;
+    padding-left:1.2em;
+    color:var(--accent);
+  }
+  ul.entries li{margin:.15em 0;}
+  ul.entries:empty::after,
+  td.value:empty::after{content:"\00a0";}
+  .cell-people{min-height:200px;}
+  .cell-io{min-height:230px;}
+  /* --- 発生頻度 --- */
+  .freq-label{
+    text-align:center;
+    font-weight:600;
+    background:var(--label-bg);
+  }
+  .freq-options{text-align:center;line-height:2.2;}
+  .freq-options .freq-line{white-space:nowrap;}
+  .freq-options .opt{margin:0 .35em;color:var(--muted);}
+  .freq-options .opt.sel{
+    color:var(--accent);
+    font-weight:700;
+    border:2px solid var(--accent);
+    border-radius:999px;
+    padding:2px 14px;
+  }
+  .freq-options .other{display:block;color:var(--muted);font-size:14px;margin-top:.2em;}
+  .freq-options .other b{color:var(--accent);font-weight:600;}
+  /* --- OUTPUT 内の2区画 --- */
+  .out-block{padding:2px 0;}
+  .out-head{font-weight:600;color:var(--ink);}
+  .out-body{color:var(--accent);padding:.3em 0 .6em 1em;}
+  .out-divider{border-top:1.5px solid var(--line);margin:8px -14px;}
+  /* --- フッター --- */
+  .footer{
+    max-width:1080px;width:100%;
+    margin:10px auto 0;
+    font-size:12px;color:var(--muted);
+    display:flex;justify-content:space-between;
+  }
+  /* --- 印刷 (A4 横) --- */
+  @page{size:A4 landscape;margin:8mm;}
+  @media print{
+    body{background:#fff;padding:0;display:block;}
+    .sheet{max-width:none;}
+    .footer{max-width:none;margin-top:6px;}
+    table{border-color:#000;}
+    td{border-color:#000;}
+  }
+  /* --- ダークモード（画面のみ。用紙は白を維持） --- */
+  @media (prefers-color-scheme: dark){
+    body{background:#16181b;}
+    .footer{color:#9aa0a6;}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <table>
+    <colgroup>
+      <col style="width:23%">
+      <col style="width:19%">
+      <col style="width:16%">
+      <col style="width:42%">
+    </colgroup>
+
+    <!-- 1. ヘッダー -->
+    <tr>
+      <td class="title-cell">業務定義シート</td>
+      <td class="bizname-label">業務名</td>
+      <td class="bizname-value" colspan="2">{{業務名}}</td>
+    </tr>
+
+    <!-- 2. 見出し: 担当者・関係者 / トリガー / 所要時間 / 目的 -->
+    <tr>
+      <td class="col-label">担当者・関係者</td>
+      <td class="col-label">トリガー</td>
+      <td class="col-label">所要時間</td>
+      <td class="col-label">目的</td>
+    </tr>
+
+    <!-- 3. 値の段（担当者と目的は下方向に結合） -->
+    <tr>
+      <td class="cell-people" rowspan="3">
+        <ul class="entries">
+{{担当者リスト}}
+        </ul>
+      </td>
+      <td class="value">{{トリガー}}</td>
+      <td class="value">{{所要時間}}</td>
+      <td class="value" rowspan="3">{{目的}}</td>
+    </tr>
+    <tr>
+      <td class="freq-label" colspan="2">発生頻度</td>
+    </tr>
+    <tr>
+      <td class="freq-options" colspan="2">
+        <span class="freq-line"><span class="opt {{頻度_毎日}}">毎日</span>・<span class="opt {{頻度_週次}}">週次</span>・<span class="opt {{頻度_月次}}">月次</span></span>
+        <span class="other">その他（ <b>{{その他頻度}}</b> ）</span>
+      </td>
+    </tr>
+
+    <!-- 4. 見出し: INPUT ▶ DO ▶ OUTPUT -->
+    <tr>
+      <td class="section-label">INPUT<span class="arrow">▶</span></td>
+      <td class="section-label" colspan="2">DO<span class="arrow">▶</span></td>
+      <td class="section-label">OUTPUT</td>
+    </tr>
+
+    <!-- 5. 値の段 -->
+    <tr>
+      <td class="cell-io">
+        <ul class="entries">
+{{INPUTリスト}}
+        </ul>
+      </td>
+      <td class="cell-io" colspan="2">
+        <ul class="entries">
+{{DOリスト}}
+        </ul>
+      </td>
+      <td class="cell-io">
+        <div class="out-block">
+          <div class="out-head">＜完了とみなす状態＞</div>
+          <div class="out-body">{{完了とみなす状態}}</div>
+        </div>
+        <div class="out-divider"></div>
+        <div class="out-block">
+          <div class="out-head">＜成果物＞</div>
+          <div class="out-body">{{成果物}}</div>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+<div class="footer">
+  <span>業務定義シート</span>
+  <span>作成日: {{作成日}}</span>
+</div>
+</body>
+</html>
