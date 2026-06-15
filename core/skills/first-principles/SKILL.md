@@ -1,6 +1,6 @@
 ---
 name: first-principles
-description: "Rethink from design principles. Go back to fundamentals when stuck. Question assumptions and explore essential solutions. Triggers: /core:first-principles, back to basics, from scratch, zero-base"
+description: "Rethink from design principles. Go back to fundamentals when stuck. Question assumptions and explore essential solutions. Sibling: to decompose and solve a problem taken as given (rather than re-question it), use /core:deep-thinking. Triggers: /core:first-principles, back to basics, from scratch, zero-base"
 user-invocable: true
 allowed-tools: Read, Grep, Glob, WebSearch
 model: sonnet

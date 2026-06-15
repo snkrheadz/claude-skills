@@ -1,0 +1,9 @@
+{
+  "name": "strategy",
+  "description": "Personal strategy for the AI-driven shift in work: audit your role's AI exposure (career-ai-scan), map your industry's transformation (industry-ai-map), and find where your expertise x AI opens opportunity (ai-opportunity-scan). Role-agnostic, honest about uncertainty.",
+  "version": "0.1.0",
+  "author": {
+    "name": "snkrheadz"
+  },
+  "license": "MIT"
+}
