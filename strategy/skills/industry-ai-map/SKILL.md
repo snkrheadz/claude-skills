@@ -1,6 +1,6 @@
 ---
 name: industry-ai-map
-description: "Map how AI will reshape an industry in three waves (1-2y / 3-5y / 5-10y): what gets automated, how value chains rebuild, who wins and loses, the new roles, and a 90-day plan to lead rather than lag. Triggers: /strategy:industry-ai-map, how will AI change my industry, industry AI disruption, AI transformation roadmap, future of my industry"
+description: "Map how AI will reshape an industry in three waves (1-2y / 3-5y / 5-10y): what gets automated, how value chains rebuild, who wins and loses, the new roles, and a 90-day plan to lead rather than lag. Industry/sector level; for your own role's exposure use /strategy:career-ai-scan. Triggers: /strategy:industry-ai-map, how will AI change my industry, industry AI disruption, AI transformation roadmap, future of my industry"
 user-invocable: true
 allowed-tools: Read, Write, Bash, Grep, Glob, AskUserQuestion, WebSearch
 model: sonnet

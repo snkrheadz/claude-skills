@@ -1,6 +1,6 @@
 ---
 name: career-ai-scan
-description: "Audit your role's exposure to AI: inventory tasks, classify each as replaceable / augmented / human-essential, estimate a timeline, and produce a survivability score with a concrete move-to-safety plan. Triggers: /strategy:career-ai-scan, will AI replace my job, AI career risk, am I going to be automated, future-proof my career"
+description: "Audit your role's exposure to AI: inventory tasks, classify each as replaceable / augmented / human-essential, estimate a timeline, and produce a survivability score with a concrete move-to-safety plan. This is the defense; for the offense (building outsized value at your expertise x AI) use /strategy:ai-opportunity-scan. Triggers: /strategy:career-ai-scan, will AI replace my job, AI career risk, am I going to be automated, future-proof my career"
 user-invocable: true
 allowed-tools: Read, Write, Bash, Grep, Glob, AskUserQuestion, WebSearch
 model: sonnet

@@ -1,6 +1,6 @@
 ---
 name: deep-thinking
-description: "Crack a problem too complex for one pass: decompose into sub-problems, solve each, integrate, then check the seams for contradictions and blind spots. Triggers: /core:deep-thinking, think deeply, decompose this, hard problem, reason this through, work through this carefully"
+description: "Crack a problem too complex for one pass: decompose into sub-problems, solve each, integrate, then check the seams for contradictions and blind spots. For making a single answer honest and calibrated (not decomposing), use /core:honest-reasoning instead. Triggers: /core:deep-thinking, think deeply, decompose this, hard problem, reason this through, work through this carefully"
 user-invocable: true
 allowed-tools: Read, Grep, Glob, WebSearch
 model: opus

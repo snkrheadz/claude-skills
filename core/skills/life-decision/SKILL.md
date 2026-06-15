@@ -1,6 +1,6 @@
 ---
 name: life-decision
-description: "Think through a big personal decision under Helpful/Honest/Harmless principles — surface the trade-offs, the real motive, the sunk costs, and the uncomfortable truth being avoided. Triggers: /core:life-decision, big decision, should I, help me decide, life decision, i'm torn between"
+description: "Think through a big personal decision under Helpful/Honest/Harmless principles — surface the trade-offs, the real motive, the sunk costs, and the uncomfortable truth being avoided. For AI-driven career or industry strategy specifically, use the strategy pack (/strategy:career-ai-scan, /strategy:ai-opportunity-scan) instead. Triggers: /core:life-decision, big decision, should I, help me decide, life decision, i'm torn between"
 user-invocable: true
 allowed-tools: AskUserQuestion, Read
 model: opus
@@ -13,6 +13,10 @@ not to say what they want to hear — it is to help them see the decision clearl
 the parts they are avoiding.
 
 > Language: respond in the user's configured language (Japanese by default).
+>
+> Sibling: this skill is for the human decision itself. If the question is really "will
+> AI replace my role?" or "where are my AI opportunities?", use `/strategy:career-ai-scan`
+> or `/strategy:ai-opportunity-scan` instead.
 
 ## Step 1: Understand the decision
 
