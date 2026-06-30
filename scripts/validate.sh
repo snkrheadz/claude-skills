@@ -16,7 +16,8 @@
 #      `model:` (warn-only — an intentional main-session skill may omit it).
 #   5. Every "/pack:name" cross-reference into a LOCAL pack resolves to a real
 #      skill (external-marketplace refs are skipped).
-#   6. `claude plugin validate .` if the CLI is available (authoritative).
+#   6. shellcheck on every *.sh file, if shellcheck is available.
+#   7. `claude plugin validate .` if the CLI is available (authoritative).
 #
 # Usage: bash scripts/validate.sh   (run from the repo root)
 
@@ -121,7 +122,27 @@ while read -r ref; do
 done < <(grep -rhoE '/[a-z][a-z0-9-]*:[a-z][a-z0-9-]+' --include=SKILL.md . | sed 's#^/##' | sort -u)
 [ "$xref_fail" -eq 0 ] && ok "cross-references resolve (local packs)"
 
-# --- 6. authoritative CLI check (optional) ----------------------------------
+# --- 6. shell static analysis (gates when shellcheck is present) -------------
+# The only executable code in this repo is the gate itself and the hooks.
+# Wiring shellcheck in means "validate.sh passed" implies the shell is clean,
+# instead of relying on a human to remember to run it. (avoid mapfile — keep
+# bash 3.2 / macOS compatibility, matching the rest of this script.)
+if command -v shellcheck >/dev/null 2>&1; then
+  sh_files=()
+  while IFS= read -r f; do sh_files+=("$f"); done \
+    < <(find . -path ./.git -prune -o -name '*.sh' -print | sort)
+  if [ "${#sh_files[@]}" -eq 0 ]; then
+    note "no *.sh files found to lint"
+  elif shellcheck "${sh_files[@]}"; then
+    ok "shellcheck clean (${#sh_files[@]} file(s))"
+  else
+    err "shellcheck reported problems (run 'shellcheck' on the *.sh files above)"
+  fi
+else
+  note "shellcheck absent — skipped shell static analysis"
+fi
+
+# --- 7. authoritative CLI check (optional) ----------------------------------
 if command -v claude >/dev/null 2>&1; then
   if claude plugin validate . >/dev/null 2>&1; then
     ok "claude plugin validate ."
