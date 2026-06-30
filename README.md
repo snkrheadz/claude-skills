@@ -1,4 +1,4 @@
-# claude-skills
+# the-boris-way
 
 A Claude Code skill marketplace maintained by snkrheadz.
 **Goal: a new teammate (engineer / PM) can use Claude Code in the same environment
@@ -29,7 +29,7 @@ philosophy) through a plugin, so those go through a separate channel.
 ### 1. Add this marketplace (everyone)
 
 ```
-/plugin marketplace add snkrheadz/claude-skills
+/plugin marketplace add snkrheadz/the-boris-way
 ```
 
 > Works for private repos too. A manual `add` reuses your local git auth
@@ -39,7 +39,7 @@ philosophy) through a plugin, so those go through a separate channel.
 ### 2. Install Core first (everyone)
 
 ```
-/plugin install core@claude-skills
+/plugin install core@the-boris-way
 ```
 
 What Core ships (role-agnostic):
@@ -59,7 +59,7 @@ What Core ships (role-agnostic):
 
 ```
 # Our own business assets (maintained by snkrheadz)
-/plugin install pm@claude-skills          # 業務定義シート (task definition sheet) as A4 HTML
+/plugin install pm@the-boris-way          # 業務定義シート (task definition sheet) as A4 HTML
 
 # PM lifecycle (external, MIT, recommended for non-developers)
 /plugin marketplace add phuryn/pm-skills
@@ -76,7 +76,7 @@ What Core ships (role-agnostic):
 #### Engineer
 
 ```
-/plugin install eng@claude-skills
+/plugin install eng@the-boris-way
 ```
 
 This pack deliberately **does not** re-implement review/simplify/verify/commit — those are
@@ -100,7 +100,7 @@ Recommended alongside the official LSP plugins:
 For anyone investigating AI/ML papers, APIs, and models — any role can add it.
 
 ```
-/plugin install research@claude-skills
+/plugin install research@the-boris-way
 ```
 
 Agents (3): `arxiv-ai-researcher` (paper discovery & synthesis),
@@ -112,7 +112,7 @@ Agents (3): `arxiv-ai-researcher` (paper discovery & synthesis),
 For anyone planning around the AI-driven shift in work — any role can add it.
 
 ```
-/plugin install strategy@claude-skills
+/plugin install strategy@the-boris-way
 ```
 
 Skills (3): `career-ai-scan` (audit your role's AI exposure → survivability score + 90-day
@@ -126,7 +126,7 @@ plan against, not forecasts.
 For anyone who drafts with AI and wants it to read like a human wrote it — any role can add it.
 
 ```
-/plugin install writing@claude-skills
+/plugin install writing@the-boris-way
 ```
 
 Skills (2): `stop-ai-slop-jp` (Japanese) and `stop-ai-slop-en` (English) review a draft and
@@ -144,7 +144,7 @@ PR through human-gated phases. Verification-first, one phase per command. Pairs 
 (`/eng:create-pr`, `/eng:test-and-fix`).
 
 ```
-/plugin install spec@claude-skills
+/plugin install spec@the-boris-way
 ```
 
 Skills (6): `/spec:scan` (audit agent-readiness → ROI-ranked intent backlog),
@@ -201,14 +201,14 @@ automatically (instead of running `/plugin install` by hand).
 ```jsonc
 {
   "extraKnownMarketplaces": {
-    "claude-skills": {
-      "source": { "source": "github", "repo": "snkrheadz/claude-skills" },
+    "the-boris-way": {
+      "source": { "source": "github", "repo": "snkrheadz/the-boris-way" },
       "autoUpdate": true
     }
   },
   "enabledPlugins": {
-    "core@claude-skills": true,
-    "pm@claude-skills": true
+    "core@the-boris-way": true,
+    "pm@the-boris-way": true
   },
   "permissions": {
     "deny": [
@@ -231,7 +231,7 @@ Copy `shared/CLAUDE.md` into your global config.
 
 ```bash
 mkdir -p ~/.claude
-curl -fsSL https://raw.githubusercontent.com/snkrheadz/claude-skills/main/shared/CLAUDE.md \
+curl -fsSL https://raw.githubusercontent.com/snkrheadz/the-boris-way/main/shared/CLAUDE.md \
   -o ~/.claude/CLAUDE.md
 # or clone and: cp shared/CLAUDE.md ~/.claude/CLAUDE.md
 ```
@@ -253,7 +253,7 @@ Now everyone is "same environment, immediately."
 ## Repository layout
 
 ```
-claude-skills/
+the-boris-way/
 ├── .claude-plugin/marketplace.json   # catalog (core, pm, eng, research, strategy, writing, spec)
 ├── CLAUDE.md                         # maintainer's map (auto-loaded when working ON this repo)
 ├── scripts/validate.sh              # closing gate: JSON, version agreement, skill frontmatter
@@ -320,5 +320,5 @@ The `model:` pin also decides how detailed the instructions should be
 - Periodically run `/eng:prune-redundant-skills` — the official surface keeps growing, so it
   audits every skill against the current built-ins, removes the now-redundant ones, and fixes
   the dependent files (README counts, `plugin.json`, `marketplace.json`, cross-skill links).
-- Consumers pull updates with `/plugin marketplace update claude-skills`.
+- Consumers pull updates with `/plugin marketplace update the-boris-way`.
 - License: MIT. The external `phuryn/pm-skills` is MIT too.

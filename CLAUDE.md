@@ -1,4 +1,4 @@
-# claude-skills — maintainer's map
+# the-boris-way — maintainer's map
 
 Maintainer context for **working *on* this repo**. `shared/CLAUDE.md` carries the
 distributed workflow philosophy (Channel B → consumer's `~/.claude/CLAUDE.md`).
