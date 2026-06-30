@@ -137,6 +137,23 @@ examples. Derived from [hardikpandya/stop-slop](https://github.com/hardikpandya/
 (Hardik Pandya) and [iKora128/stop-ai-slop-jp](https://github.com/iKora128/stop-ai-slop-jp)
 (Daichi Nagashima); both MIT.
 
+#### Spec-driven development (any role making changes)
+
+The spec pipeline — take a change from a one-line intent (or a repo audit) to a mergeable
+PR through human-gated phases. Verification-first, one phase per command. Pairs with **eng**
+(`/eng:create-pr`, `/eng:test-and-fix`).
+
+```
+/plugin install spec@claude-skills
+```
+
+Skills (6): `/spec:scan` (audit agent-readiness → ROI-ranked intent backlog),
+`/spec:requirement` (EARS acceptance criteria), `/spec:design` (DDD / clean architecture),
+`/spec:tasks` (ordered, independently-verifiable tasks), `/spec:implement` (implement with
+running notes), `/spec:review` (isolated-context adversarial review before the PR gate).
+Self-contained: bundles the implement phase and the portable audit rubric. See
+[spec/README.md](spec/README.md) for the full guide.
+
 #### Marketer / Designer
 
 These roles are served almost entirely by **official Anthropic plugins** — we no longer
@@ -237,7 +254,7 @@ Now everyone is "same environment, immediately."
 
 ```
 claude-skills/
-├── .claude-plugin/marketplace.json   # catalog (core, pm, eng, research, strategy)
+├── .claude-plugin/marketplace.json   # catalog (core, pm, eng, research, strategy, writing, spec)
 ├── CLAUDE.md                         # maintainer's map (auto-loaded when working ON this repo)
 ├── scripts/validate.sh              # closing gate: JSON, version agreement, skill frontmatter
 ├── core/                             # role-agnostic plugin
